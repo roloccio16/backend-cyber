@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = 3000;
+const PORT = 3050;
 const db = require('./initdb');
 const geoip = require('geoip-lite');
 //import request
@@ -30,10 +30,11 @@ app.get('/imagenes', (req, res) => {
     });
 
 app.get('/usuarios', (req, res) => {
-    const stmt = db.prepare('SELECT * FROM usuarios');
+    const stmt = "SELECT * FROM usuarios";
     const usuarios = db.prepare(stmt).all();
     res.json(usuarios);
     });
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     })
