@@ -15,7 +15,7 @@ app.get('/imagenes', (req, res) => {
     const fecha = new Date().toISOString();
     const localizacion = geoip.lookup(ip);
     const insert = db.prepare('INSERT INTO usuarios (ip, userAgent, fecha, localizacion) VALUES (?, ?, ?, ?)');
-    insert.run(ip, userAgent, fecha, localizacion);
+    insert.run(ip, userAgent, fecha, localizacion.city);
     const imagenes = [
         "1.png",
         "2.png",
