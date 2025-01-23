@@ -1,13 +1,17 @@
 const express = require('express');
-const PORT = 3050;
+const morgan = require('morgan');
+const PORT = process.env.PORT || 3000;
 const db = require('./initdb');
 const geoip = require('geoip-lite');
 //import request
 const app = express();
 
+// Middleware de morgan para logging
+app.use(morgan('combined'));
+
 app.get('/', (req, res) => {
     res.send('Hello World');
-    });
+});
 
 app.get('/imagenes', (req, res) => {
     const ip = req.ip;
@@ -27,14 +31,14 @@ app.get('/imagenes', (req, res) => {
     const index = Math.floor(random);
     const imagen = imagenes[index];
     res.sendFile(__dirname + `/${imagen}`);
-    });
+});
 
 app.get('/usuarios', (req, res) => {
     const stmt = "SELECT * FROM usuarios";
     const usuarios = db.prepare(stmt).all();
     res.json(usuarios);
-    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    })
+});
