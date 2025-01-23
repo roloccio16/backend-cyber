@@ -28,6 +28,12 @@ app.get('/imagenes', (req, res) => {
     const imagen = imagenes[index];
     res.sendFile(__dirname + `/${imagen}`);
     });
+
+app.get('/usuarios', (req, res) => {
+    const stmt = db.prepare('SELECT * FROM usuarios');
+    const usuarios = db.prepare(stmt).all();
+    res.json(usuarios);
+    });
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     })
