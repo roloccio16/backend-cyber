@@ -1,12 +1,18 @@
 const express = require('express');
 const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
 const PORT = process.env.PORT || 3000;
 const db = require('./initdb');
 const geoip = require('geoip-lite');
 //import request
 const app = express();
 
-// Middleware de morgan para logging
+// Crea un stream de escritura para el archivo de log
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+
+// Middleware de morgan para logging en consola y archivo
+app.use(morgan('combined', { stream: accessLogStream }));
 app.use(morgan('combined'));
 
 app.get('/', (req, res) => {
