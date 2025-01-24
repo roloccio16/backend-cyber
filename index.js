@@ -46,7 +46,11 @@ app.get('/usuarios', (req, res) => {
     const usuarios = db.prepare(stmt).all();
     res.json(usuarios);
 });
-
+app.post("/collect", (req, res) => {
+    const data = req.body;
+    console.log(data);
+    res.send(data);
+});
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
