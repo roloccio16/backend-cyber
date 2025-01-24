@@ -14,7 +14,9 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 // Middleware de morgan para logging en consola y archivo
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(morgan('combined'));
-
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
